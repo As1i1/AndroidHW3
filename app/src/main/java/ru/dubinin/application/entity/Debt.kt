@@ -1,6 +1,6 @@
 package ru.dubinin.application.entity
 
-data class Dolg(
+data class Debt(
     val id: Long,
     val title: String,
     val authorName: String,

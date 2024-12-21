@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">Cats images</string>
-    <string name="add_cat_text">Add cat</string>
+    <string name="app_name">dolg</string>
+    <string name="enter_button">Войти</string>
+    <string name="back">Назад</string>
+    <string name="simple_phone">+7 (000) 000 00-00</string>
+    <string name="phone_number_placeholder">Номер телефона</string>
+    <string name="password_placeholder">Пароль</string>
 </resources>
