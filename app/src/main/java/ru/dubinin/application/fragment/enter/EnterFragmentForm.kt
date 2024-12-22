@@ -17,8 +17,6 @@ import ru.dubinin.application.service.UserService
 
 class EnterFragmentForm: Fragment(R.layout.enter_form) {
 
-    private var enteredUser: User? = null
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -40,22 +38,29 @@ class EnterFragmentForm: Fragment(R.layout.enter_form) {
             val phone = editTextPhone.text.toString()
             val password = editTextPassword.text.toString()
             lifecycle.coroutineScope.launch {
-                val user = UserService.getUser(phone, password)
-                if (user != null) {
-                    enteredUser = user
-                } else {
+                try {
+                    val user = UserService.getUser(phone, password)
+                    if (user != null) {
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.container, MainFragment(user))
+                            .commit()
+                    } else {
+                        val err = Toast.makeText(
+                            requireActivity().applicationContext,
+                            "Unknown User",
+                            Toast.LENGTH_SHORT
+                        )
+                        err.show()
+                    }
+                } catch (e: Exception) {
                     val err = Toast.makeText(
                         requireActivity().applicationContext,
-                        "Unknown User",
+                        "Server error",
                         Toast.LENGTH_SHORT
                     )
                     err.show()
                 }
                 progressBar.visibility = View.INVISIBLE
-
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.container, MainFragment())
-                    .commit()
             }
         }
     }

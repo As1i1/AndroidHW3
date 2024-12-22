@@ -5,4 +5,7 @@
     <string name="simple_phone">+7 (000) 000 00-00</string>
     <string name="phone_number_placeholder">Номер телефона</string>
     <string name="password_placeholder">Пароль</string>
+    <string name="phone_text_debt_screen">Номер для перевода:</string>
+    <string name="waiting_pay_text">Я перевел</string>
+    <string name="payed">Оплачено</string>
 </resources>

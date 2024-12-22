@@ -34,6 +34,7 @@
         android:textColor="@color/main"
         android:textStyle="bold"
         android:fontFamily="@font/onest_bold"
+        android:background="@drawable/rounded_corners_white"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
