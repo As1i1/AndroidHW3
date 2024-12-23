@@ -8,11 +8,9 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.coroutineScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import ru.dubinin.application.R
-import ru.dubinin.application.entity.User
+import ru.dubinin.application.fragment.MainFragment
 import ru.dubinin.application.service.UserService
 
 class EnterFragmentForm: Fragment(R.layout.enter_form) {

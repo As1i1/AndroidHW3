@@ -1,4 +1,4 @@
-package ru.dubinin.application.fragment.enter
+package ru.dubinin.application.fragment.debt
 
 import android.os.Bundle
 import android.view.View
@@ -11,9 +11,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import ru.dubinin.application.R
-import ru.dubinin.application.api.Delegates
 import ru.dubinin.application.entity.Debt
 import ru.dubinin.application.entity.User
+import ru.dubinin.application.fragment.MainFragment
 import ru.dubinin.application.service.DebtService
 
 class DebtFragment(val user: User, val debt: Debt): Fragment(R.layout.debt_screen) {

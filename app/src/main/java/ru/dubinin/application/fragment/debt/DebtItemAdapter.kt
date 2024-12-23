@@ -1,4 +1,4 @@
-package ru.dubinin.application.fragment.enter
+package ru.dubinin.application.fragment.debt
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
