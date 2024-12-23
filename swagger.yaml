@@ -1,0 +1,239 @@
+swagger: "2.0"
+info:
+  title: API приложения "DOLG"
+  description: Интерфейс управления приложения "DOLG"
+  version: "0.1"
+host: "localhost:8080"
+basePath: "/v1"
+schemes: ["http"]
+tags:
+  - name: user
+  - name: debt
+paths:
+  /user/auth:
+    get:
+      summary: Авторизация пользователя
+      description: Авторизация пользователя
+      operationId: userAuth
+      tags:
+        - user
+      produces:
+        - application/json
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Креды пользователя"
+          required: true
+          schema:
+            $ref: "#/definitions/UserCreds"
+      responses:
+        "200":
+          description: Успех
+          schema:
+            $ref: "#/definitions/User"
+        "404":
+          description: Юзер не найден
+  /user/{user_id}:
+    get:
+      summary: Получение пользователя по идентификатору
+      description: Получения пользователя по идентификатору
+      operationId: userId
+      tags:
+        - user
+      produces:
+        - application/json
+      parameters:
+        - name: "user_id"
+          in: "path"
+          description: "Идентификатор пользователя"
+          required: true
+          type: "integer"
+      responses:
+        "200":
+          description: Успех
+          schema:
+            $ref: "#/definitions/User"
+  /debt:
+    get:
+      summary: Получение всех долгов, связанных с пользователем
+      description: Получение всех долгов, связанных с пользователем
+      operationId: debt
+      tags:
+        - debt
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Успех
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Debt"
+  /debt/{debt_id}/items:
+    get:
+      summary: Получение детального описания долга
+      description: Получение детального описания долга
+      operationId: debtItems
+      tags:
+        - debt
+      produces:
+        - application/json
+      parameters:
+        - name: "debt_id"
+          in: "path"
+          description: "Идентификатор долга"
+          required: true
+          type: "integer"
+      responses:
+        "200":
+          description: Успех
+          schema:
+            $ref: "#/definitions/DebtSingle"
+definitions:
+  User:
+    title: User
+    description: Пользователь
+    type: object
+    properties:
+      id:
+        description: Идентификатор
+        type: integer
+        minimum: 1
+      name:
+        description: Имя пользователя
+        type: string
+      phoneNumber:
+        description: Телефон пользователя
+        type: string
+      bankName:
+        description: Банк пользователя
+        type: string
+      password:
+        description: Пароль пользователя
+        type: string
+      image:
+        description: Картинка пользователя
+        type: string
+    required:
+      - id
+      - name
+      - phoneNumber
+      - bankName
+      - password
+    example:
+      id: 1
+      name: "John"
+      phoneNumber: "1234"
+      bankName: "T-Bank"
+      password: "qwerty"
+      image: "https://cs10.pikabu.ru/post_img/big/2018/09/03/6/153596777311515846.jpg"
+  UserCreds:
+    title: UserCreds
+    description: Креды пользователя
+    type: object
+    properties:
+      phoneNumber:
+        description: Номер телефона пользователя
+        type: string
+      password:
+        description: Пароль пользователя
+        type: string
+    required:
+      - phoneNumber
+      - password
+    example:
+      phoneNumber: "12345"
+      password: "qwerty"
+  Debt:
+    title: Debt
+    description: Долг
+    type: object
+    properties:
+      id:
+        description: Идентификатор долго
+        type: integer
+        minimum: 1
+      owner_id:
+        description: Владелец долго
+        type: integer
+        minimum: 1
+      name:
+        description: Название долга
+        type: string
+      guests:
+        description: Количество людей, связанных с долгом
+        type: integer
+      date:
+        description: Время долго
+        type: string
+      summary:
+        description: Размер долга
+        type: integer
+    required:
+      - id
+      - owner_id
+      - name
+      - guests
+      - date
+      - summary
+    example:
+      id: 1
+      owner_id: 2
+      name: "Долг"
+      guests: 10
+      date: "01.01.2024"
+      summary: 100000
+  DebtItem:
+    title: DebtItem
+    description: Описание долга
+    type: object
+    properties:
+      id:
+        description: Идентификатор описания долга
+        type: integer
+        minimum: 1
+      debt_id:
+        description: Идентификатор долга
+        type: integer
+        minimum: 1
+      name:
+        description: Название описания долга
+        type: string
+      summary:
+        description: Цена
+        type: integer
+    required:
+      - id
+      - debt_id
+      - name
+      - summary
+    example:
+      id: 1
+      debt_id: 1
+      name: "Торт"
+      summary: 59
+  DebtSingle:
+    title: DebtItem
+    description: Детали долга
+    type: object
+    properties:
+      owner_id:
+        description: Владелец долга
+        type: integer
+        minimum: 1
+      phoneNumber:
+        description: Телефон владельца долга
+        type: string
+      items:
+        description: Описание долга
+        type: array
+        items:
+          $ref: "#/definitions/DebtItem"
+    required:
+      - owner_id
+      - phoneNumber
+      - items
+    example:
+      owner_id: 1
+      phoneNumber: "1234"
+      items: [ "#/definitions/DebtItem.example" ]
