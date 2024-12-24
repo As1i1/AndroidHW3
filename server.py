@@ -29,6 +29,12 @@ def user_me(id):
     return jsonify({'error': 'user not found'}), 404
 
 
+
+def user_by_id(id):
+    for user in USERS:
+        if user['id'] == id:
+            return user
+
 @app.route('/v1/user/<int:id>/debt/')
 def get_debts(id):
     res = []
@@ -43,7 +49,7 @@ def get_debts(id):
         res.append(
             {
                 "id": debt["id"],
-                "owner_id": debt["owner_id"],
+                "owner": user_by_id(debt["owner_id"]),
                 "name": debt["name"],
                 "guests": debt["guests"],
                 "date": debt["date"],

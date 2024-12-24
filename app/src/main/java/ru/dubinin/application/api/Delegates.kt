@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object Delegates {
-    const val URL = "http://192.168.1.105:8080"
+    const val URL = "http://172.28.26.146:8080"
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(URL)

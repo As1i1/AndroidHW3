@@ -16,7 +16,7 @@ import ru.dubinin.application.entity.User
 import ru.dubinin.application.fragment.MainFragment
 import ru.dubinin.application.service.DebtService
 
-class DebtFragment(val user: User, val debt: Debt, val author: User): Fragment(R.layout.debt_screen) {
+class DebtFragment(val user: User, val debt: Debt): Fragment(R.layout.debt_screen) {
 
     val adapter = DebtItemAdapter(lifecycleScope)
 
@@ -52,7 +52,8 @@ class DebtFragment(val user: User, val debt: Debt, val author: User): Fragment(R
         }
 
         val authorContacts = view.findViewById<TextView>(R.id.phone_bank)
-        authorContacts.text = "${author.phoneNumber} (${author.bankName})"
+        authorContacts.text = "${debt.owner.phoneNumber} (${debt.owner.bankName})"
+
         val progressBar = view.findViewById<ProgressBar>(R.id.debt_progress_bar)
         lifecycleScope.launch {
             try {

@@ -13,20 +13,18 @@ import ru.dubinin.application.fragment.debt.DebtFragment
 class DebtViewHolder(val user: User, val view: View) : ViewHolder(view) {
 
     private var debt: Debt? = null
-    private var author: User? = null
     private val debtName = view.findViewById<TextView>(R.id.debt_name)
     private val debtAuthor = view.findViewById<TextView>(R.id.debt_author)
     private val debtGuest = view.findViewById<TextView>(R.id.debt_guest_count)
-    private val summary = view.findViewById<TextView>(R.id.debt_summary)
+    private val summary = view.findViewById<TextView>(R.id.holder_debt_summary)
     private val debtDate = view.findViewById<TextView>(R.id.debt_date)
 
-    fun bind(debt: Debt, author: User) {
+    fun bind(debt: Debt) {
         this.debt = debt
-        this.author = author
         debtName.text = debt.name
-        debtAuthor.text = author.name
+        debtAuthor.text = debt.owner.name
         debtGuest.text = debt.guests.toString()
-        summary.text = debt.summary.toString()
+        summary.text = "${debt.summary} руб."
         debtDate.text = debt.date
     }
 
@@ -34,7 +32,7 @@ class DebtViewHolder(val user: User, val view: View) : ViewHolder(view) {
         view.setOnClickListener {
             debt?.let {
                 transactionFragmentManager.beginTransaction()
-                    .replace(R.id.container, DebtFragment(user, it, author!!))
+                    .replace(R.id.container, DebtFragment(user, it))
                     .commit()
             } ?: run {
                 val err = Toast.makeText(

@@ -38,10 +38,7 @@ class MainFragment(private val user: User): Fragment(R.layout.main_fragment) {
         lifecycleScope.launch {
             try {
                 val debts = DebtService.getDebts(user.id) ?: return@launch
-                val ownerIds = debts.map { it.owner_id }
-                val userById = ownerIds.map { UserService.getUserById(requireContext(), it) }
-                    .associateBy { it!!.id }
-                adapter.initDebts(debts.map { it to userById[it.owner_id]!! })
+                adapter.initDebts(debts)
             } finally {
                 progressBar.visibility = View.INVISIBLE
             }

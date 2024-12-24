@@ -13,7 +13,7 @@ class DebtsAdapter(
     val user: User,
     ) : RecyclerView.Adapter<DebtViewHolder>() {
 
-    private var debts = mutableListOf<Pair<Debt, User>>()
+    private var debts = mutableListOf<Debt>()
         set(value) {
             debts.clear()
             debts.addAll(value)
@@ -33,11 +33,10 @@ class DebtsAdapter(
     override fun getItemCount(): Int = debts.size
 
     override fun onBindViewHolder(holder: DebtViewHolder, position: Int) {
-        val (d, a) = debts[position]
-        holder.bind(d, a)
+        holder.bind(debts[position])
     }
 
-    fun initDebts(debts: List<Pair<Debt, User>>) {
+    fun initDebts(debts: List<Debt>) {
         this.debts = debts.toMutableList()
     }
 }
