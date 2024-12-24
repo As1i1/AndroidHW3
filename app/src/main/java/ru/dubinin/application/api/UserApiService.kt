@@ -2,6 +2,7 @@ package ru.dubinin.application.api
 
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.dubinin.application.entity.User
 
@@ -12,8 +13,8 @@ interface UserApiService {
         @Query("password") pass: String,
     ): Response<User>
 
-    @GET("v1/user/photo/url")
-    suspend fun getUserPhoto(
-        @Query("id") id: Long
-    ): Response<String>
+    @GET("v1/user/{id}/")
+    suspend fun getUserById(
+        @Path("id") userId: Long
+    ): Response<User>
 }

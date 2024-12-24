@@ -22,18 +22,20 @@ def auth_user():
 
 
 @app.route('/v1/user/<int:id>/')
-def user_me(id_):
+def user_me(id):
     for user in USERS:
-        if id_ == user['id']:
+        if id == user['id']:
             return jsonify(user), 200
     return jsonify({'error': 'user not found'}), 404
 
 
-@app.route('/v1/debt/')
-def get_debts():
+@app.route('/v1/user/<int:id>/debt/')
+def get_debts(id):
     res = []
     for debt in DEBTS:
         summary = 0
+        if id not in debt['ids_guests']:
+            continue
         for debt_item in DEBT_ITEMS:
             if debt_item["debt_id"] != debt["id"]:
                 continue
@@ -45,7 +47,8 @@ def get_debts():
                 "name": debt["name"],
                 "guests": debt["guests"],
                 "date": debt["date"],
-                "summary": summary
+                "summary": summary,
+                "status": debt['status']
             }
         )
     return jsonify(res), 200

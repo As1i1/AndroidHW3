@@ -16,7 +16,7 @@ import ru.dubinin.application.entity.User
 import ru.dubinin.application.fragment.MainFragment
 import ru.dubinin.application.service.DebtService
 
-class DebtFragment(val user: User, val debt: Debt): Fragment(R.layout.debt_screen) {
+class DebtFragment(val user: User, val debt: Debt, val author: User): Fragment(R.layout.debt_screen) {
 
     val adapter = DebtItemAdapter(lifecycleScope)
 
@@ -24,14 +24,19 @@ class DebtFragment(val user: User, val debt: Debt): Fragment(R.layout.debt_scree
         super.onViewCreated(view, savedInstanceState)
 
         val title = view.findViewById<TextView>(R.id.debt_name)
-        title.text = debt.title
+        title.text = debt.name
 
         val summary = view.findViewById<TextView>(R.id.debt_summary)
         summary.text = "${debt.summary} руб."
 
         val payButton = view.findViewById<Button>(R.id.button_pay_waited)
         val successPay = view.findViewById<Button>(R.id.button_pay_success)
-        payButton.setOnClickListener {
+        if (!debt.status) {
+            payButton.setOnClickListener {
+                payButton.visibility = View.INVISIBLE
+                successPay.visibility = View.VISIBLE
+            }
+        } else {
             payButton.visibility = View.INVISIBLE
             successPay.visibility = View.VISIBLE
         }
@@ -47,6 +52,7 @@ class DebtFragment(val user: User, val debt: Debt): Fragment(R.layout.debt_scree
         }
 
         val authorContacts = view.findViewById<TextView>(R.id.phone_bank)
+        authorContacts.text = "${author.phoneNumber} (${author.bankName})"
         val progressBar = view.findViewById<ProgressBar>(R.id.debt_progress_bar)
         lifecycleScope.launch {
             try {

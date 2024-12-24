@@ -9,4 +9,8 @@
     <string name="waiting_pay_text">Я перевел</string>
     <string name="payed">Оплачено</string>
     <string name="summary">Итого</string>
+    <string name="app_name_ru">Долги</string>
+    <string name="event_create">Создать событие</string>
+    <string name="profile">Профиль</string>
+    <string name="exit">   Выйти</string>
 </resources>

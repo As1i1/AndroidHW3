@@ -26,38 +26,48 @@ USERS = [
 DEBTS = [
     {
         "id": 1,
+        "ids_guests": [1, 2, 3],
         "owner_id": 2,
         "name": "something special",
         "guests": 1000,
-        "date": "01.01.2024"
+        "date": "01.01.2024",
+        "status": False,
     },
     {
         "id": 2,
+        "ids_guests": [1, 2, 3],
         "owner_id": 1,
         "name": "День рождения",
         "guests": 3,
-        "date": "01.01.2024"
+        "date": "01.01.2024",
+        "status": True,
     },
     {
         "id": 3,
+        "ids_guests": [1, 2, 3],
         "owner_id": 3,
         "name": "Буханка",
         "guests": 10,
-        "date": "01.01.2024"
+        "date": "01.01.2024",
+        "status": False,
     },
     {
         "id": 4,
+        "ids_guests": [1, 2, 3],
         "owner_id": 1,
         "name": "another day",
         "guests": 2000,
-        "date": "02.01.2024"
+        "date": "02.01.2024",
+        "status": False,
     },
     {
         "id": 5,
+        "ids_guests": [1, 2, 3],
         "owner_id": 3,
         "name": "Продолжение буханки",
         "guests": 10,
-        "date": "02.01.2024"
+        "date": "02.01.2024",
+        "status": False,
     }
 ]
 
