@@ -1,5 +1,6 @@
 package ru.dubinin.application.fragment.debt
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import ru.dubinin.application.R
 import ru.dubinin.application.entity.Debt
@@ -76,6 +78,18 @@ class DebtFragment(val user: User, val debt: Debt): Fragment(R.layout.debt_scree
                 )
                 err.show()
             }
+        }
+
+        val shareButton = view.findViewById<Button>(R.id.share_button)
+        shareButton.setOnClickListener {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, Gson().toJson(debt))
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         }
     }
 }

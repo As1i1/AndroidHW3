@@ -29,6 +29,20 @@
         android:background="@color/main"
         />
 
+    <Button
+        android:id="@+id/share_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/rounded_corners_white"
+        android:layout_margin="5sp"
+        android:text="@string/share_button"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:fontFamily="@font/onest_bold"
+        />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"

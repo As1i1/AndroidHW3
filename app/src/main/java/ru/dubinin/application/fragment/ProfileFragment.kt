@@ -1,13 +1,16 @@
 package ru.dubinin.application.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.google.gson.Gson
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
@@ -70,6 +73,18 @@ class ProfileFragment(val user: User): Fragment(R.layout.profile) {
                 }
 
             })
+        }
+
+        val shareButton = view.findViewById<Button>(R.id.share_button)
+        shareButton.setOnClickListener {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, Gson().toJson(user))
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         }
     }
 }
